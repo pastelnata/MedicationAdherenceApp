@@ -1,0 +1,37 @@
+# Android/IntelliJ/Java related
+.gradle/
+.kotlin/
+.idea/
+*.iml
+
+# Build output
+/build/
+app/build/
+captures/
+.externalNativeBuild/
+.cxx/
+
+# Local configuration (do not share)
+local.properties
+
+# Keystore files (security-sensitive)
+*.jks
+*.keystore
+
+# Log files
+*.log
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# APK and package files
+*.apk
+*.ap_
+
+# Navigation editor temp files
+.navigation/
+
+# Memory dumps
+*.hprof
+
