@@ -1,3 +1,25 @@
 <resources>
-    <string name="app_name">MedicationAdherenceApp</string>
+    <string name="app_name">MedCare</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="welcome_to_medcare">Welcome to MedCare</string>
+    <string name="medication_management_system">Your comprehensive medication management system</string>
+    <string name="who_are_you">Who are you?</string>
+    <string name="im_a_patient">I\'m a Patient</string>
+    <string name="manage_my_medications">Manage my medications and health</string>
+    <string name="im_a_family_member">I\'m a Family Member</string>
+    <string name="monitor_and_support">Monitor and support my loved one</string>
+    <string name="emergency_911">Emergency: 911</string>
+    <string name="back">Back</string>
+    <string name="patient_login">Patient Login</string>
+    <string name="family_member_login">Family Member Login</string>
+    <string name="sign_in_to_access_dashboard">Sign in to access your dashboard</string>
+    <string name="email_address">Email Address</string>
+    <string name="enter_your_email">Enter your email</string>
+    <string name="enter_your_password">Enter your password</string>
+    <string name="logging_in">Logging in...</string>
+    <string name="select_user_type_error">Please select your user type</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="dont_have_account">Don\'t have an account? <b>Sign up</b></string>
 </resources>

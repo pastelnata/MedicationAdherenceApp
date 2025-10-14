@@ -1,3 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="colorPrimary">#1A202C</color> <!-- Dark Charcoal -->
+    <color name="colorPrimaryDark">#1A202C</color>
+    <color name="colorAccent">#42A5F5</color> <!-- Patient Blue -->
+
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+
+    <color name="textColorPrimary">#1A202C</color>
+    <color name="textColorSecondary">#718096</color>
+
+    <color name="patient_card_bg">#E3F2FD</color>
+    <color name="patient_icon_tint">#42A5F5</color>
+
+    <color name="family_card_bg">#E8F5E9</color>
+    <color name="family_icon_tint">#66BB6A</color>
+
+    <color name="card_border_color">#E2E8F0</color>
 </resources>
