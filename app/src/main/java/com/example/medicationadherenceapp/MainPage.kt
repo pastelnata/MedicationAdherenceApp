@@ -26,64 +26,66 @@ import androidx.compose.ui.text.font.FontWeight
 @Preview
 @Composable
 fun MainPage() {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color.White)
-            .verticalScroll(rememberScrollState())
-            .padding(horizontal = 16.dp, vertical = 8.dp),
-    ) {
-        // hard coded for now if
-        MedStatusSummary(
-            statusCounts = mapOf(
-                MedStatus.OVERDUE to 1,
-                MedStatus.DUE to 1,
-                MedStatus.TAKEN to 1
-            )
-        )
-
-        Spacer(modifier = Modifier.padding(8.dp))
-
-        Row(
+    ScaffoldWithTopBar {
+        Column(
             modifier = Modifier
-                .fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
+                .fillMaxSize()
+                .background(Color.White)
+                .verticalScroll(rememberScrollState())
+                .padding(horizontal = 16.dp, vertical = 8.dp),
         ) {
-            Icon(
-                painter = painterResource(DrawableIcons.ALARM.id),
-                contentDescription = "Alert",
-                modifier = Modifier.size(30.dp).padding(end = 4.dp),
-                tint = Color(0xFFD32F2F),
-            )
-            HeaderText("Needs Immediate Attention")
-        }
-
-        // insert medication boxes here
-
-        Spacer(modifier = Modifier.padding(8.dp))
-
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = androidx.compose.foundation.layout.Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            HeaderText("Today's Medication")
-            OutlinedCard {
-                Text(
-                    // hard coded for now as well
-                    text = "1/4 taken",
-                    modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
-                    style = MaterialTheme.typography.bodyMedium,
-                    fontWeight = FontWeight.Medium
+            // hard coded for now if
+            MedStatusSummary(
+                statusCounts = mapOf(
+                    MedStatus.OVERDUE to 1,
+                    MedStatus.DUE to 1,
+                    MedStatus.TAKEN to 1
                 )
+            )
+
+            Spacer(modifier = Modifier.padding(8.dp))
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(
+                    painter = painterResource(DrawableIcons.ALARM.id),
+                    contentDescription = "Alert",
+                    modifier = Modifier.size(30.dp).padding(end = 4.dp),
+                    tint = Color(0xFFD32F2F),
+                )
+                HeaderText("Needs Immediate Attention")
             }
+
+            // insert medication boxes here
+
+            Spacer(modifier = Modifier.padding(8.dp))
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = androidx.compose.foundation.layout.Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                HeaderText("Today's Medication")
+                OutlinedCard {
+                    Text(
+                        // hard coded for now as well
+                        text = "1/4 taken",
+                        modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
+                        style = MaterialTheme.typography.bodyMedium,
+                        fontWeight = FontWeight.Medium
+                    )
+                }
+            }
+
+            // insert medication boxes here
+
+            Spacer(modifier = Modifier.padding(8.dp))
+
+            HealthTips()
         }
-
-        // insert medication boxes here
-
-        Spacer(modifier = Modifier.padding(8.dp))
-
-        HealthTips()
     }
 }
 
