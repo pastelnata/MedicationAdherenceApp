@@ -3,6 +3,7 @@ package com.example.medicationadherenceapp
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Help
@@ -107,7 +108,7 @@ fun ScaffoldWithTopBar(
                 )
             }
         ) { paddingValues ->
-            Column(modifier = Modifier.padding(paddingValues)) {
+            Column(modifier = Modifier.padding(paddingValues).fillMaxSize()) {
                 content()
             }
         }
