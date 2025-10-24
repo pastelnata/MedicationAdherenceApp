@@ -16,11 +16,6 @@ import androidx.compose.ui.unit.dp
 import com.example.medicationadherenceapp.ui.theme.MedicationAdherenceAppTheme
 import kotlinx.coroutines.delay
 
-enum class UserType {
-    PATIENT,
-    FAMILY
-}
-
 @Composable
 fun LoginPage(onLogin: (UserType) -> Unit) {
     var selectedUserType by remember { mutableStateOf<UserType?>(null) }
