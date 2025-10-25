@@ -17,6 +17,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.medicationadherenceapp.*  // ScaffoldWithTopBar, DrawableIcons, MedStatus, MedStatusSummary, HealthTips, etc.
+import com.example.medicationadherenceapp.ScaffoldWithTopBar
+
 
 @Composable
 fun MainPage(
@@ -26,7 +28,7 @@ fun MainPage(
     onSkip: (DoseUi) -> Unit,
     takenCount: Int, // show taken count
 ) {
-    // ✅ Integrate login + header + sidebar from (1):
+    // Integrate login + header + sidebar from (1):
     // Wrap the whole screen inside ScaffoldWithTopBar.
     ScaffoldWithTopBar {
         LazyColumn(
@@ -124,6 +126,7 @@ fun MainPage(
         }
     }
 }
+
 
 @Composable
 fun HeaderText(text: String) {
