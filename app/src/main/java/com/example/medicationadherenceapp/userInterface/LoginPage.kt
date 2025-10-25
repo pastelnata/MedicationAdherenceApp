@@ -1,4 +1,4 @@
-package com.example.medicationadherenceapp
+package com.example.medicationadherenceapp.userInterface
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -23,8 +23,8 @@ enum class UserType {
 }
 
 @Composable
-fun LoginPage(onLogin: (UserType) -> Unit) {
-    var selectedUserType by remember { mutableStateOf<UserType?>(null) }
+fun LoginPage(onLogin: (com.example.medicationadherenceapp.UserType) -> Unit) {
+    var selectedUserType by remember { mutableStateOf<com.example.medicationadherenceapp.UserType?>(null) }
 
     if (selectedUserType == null) {
         UserTypeSelection(onSelect = { selectedUserType = it })
@@ -34,7 +34,7 @@ fun LoginPage(onLogin: (UserType) -> Unit) {
 }
 
 @Composable
-fun UserTypeSelection(onSelect: (UserType) -> Unit) {
+fun UserTypeSelection(onSelect: (com.example.medicationadherenceapp.UserType) -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -51,7 +51,7 @@ fun UserTypeSelection(onSelect: (UserType) -> Unit) {
         Card(
             modifier = Modifier
                 .fillMaxWidth()
-                .clickable { onSelect(UserType.PATIENT) },
+                .clickable { onSelect(_root_ide_package_.com.example.medicationadherenceapp.UserType.PATIENT) },
             elevation = CardDefaults.cardElevation(4.dp)
         ) {
             Row(modifier = Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
@@ -67,7 +67,7 @@ fun UserTypeSelection(onSelect: (UserType) -> Unit) {
         Card(
             modifier = Modifier
                 .fillMaxWidth()
-                .clickable { onSelect(UserType.FAMILY) },
+                .clickable { onSelect(_root_ide_package_.com.example.medicationadherenceapp.UserType.FAMILY) },
             elevation = CardDefaults.cardElevation(4.dp)
         ) {
             Row(modifier = Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
@@ -83,7 +83,7 @@ fun UserTypeSelection(onSelect: (UserType) -> Unit) {
 }
 
 @Composable
-fun LoginScreen(userType: UserType, onBack: () -> Unit, onLogin: () -> Unit) {
+fun LoginScreen(userType: com.example.medicationadherenceapp.UserType, onBack: () -> Unit, onLogin: () -> Unit) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var isLoading by remember { mutableStateOf(false) }
@@ -112,7 +112,6 @@ fun LoginScreen(userType: UserType, onBack: () -> Unit, onLogin: () -> Unit) {
 
     Column(modifier = Modifier.padding(16.dp)) {
         IconButton(onClick = onBack) {
-            Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
         }
         Column(
             modifier = Modifier.fillMaxSize(),
@@ -122,8 +121,8 @@ fun LoginScreen(userType: UserType, onBack: () -> Unit, onLogin: () -> Unit) {
 
             Text(
                 text = when {
-                    isSignUp -> if (userType == UserType.PATIENT) "Patient Sign Up" else "Family Member Sign Up"
-                    else -> if (userType == UserType.PATIENT) "Patient Login" else "Family Member Login"
+                    isSignUp -> if (userType == _root_ide_package_.com.example.medicationadherenceapp.UserType.PATIENT) "Patient Sign Up" else "Family Member Sign Up"
+                    else -> if (userType == _root_ide_package_.com.example.medicationadherenceapp.UserType.PATIENT) "Patient Login" else "Family Member Login"
                 },
                 style = MaterialTheme.typography.headlineSmall
             )
@@ -188,7 +187,7 @@ fun LoginPagePreview() {
 @Composable
 fun LoginScreenPatientPreview() {
     MedicationAdherenceAppTheme {
-        LoginScreen(userType = UserType.PATIENT, onBack = {}, onLogin = {})
+        LoginScreen(userType = _root_ide_package_.com.example.medicationadherenceapp.UserType.PATIENT, onBack = {}, onLogin = {})
     }
 }
 
@@ -196,6 +195,6 @@ fun LoginScreenPatientPreview() {
 @Composable
 fun LoginScreenFamilyPreview() {
     MedicationAdherenceAppTheme {
-        LoginScreen(userType = UserType.FAMILY, onBack = {}, onLogin = {})
+        LoginScreen(userType = _root_ide_package_.com.example.medicationadherenceapp.UserType.FAMILY, onBack = {}, onLogin = {})
     }
 }

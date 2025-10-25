@@ -1,4 +1,4 @@
-package com.example.medicationadherenceapp
+package com.example.medicationadherenceapp.userInterface
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -27,13 +27,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import com.example.medicationadherenceapp.userInterface.MessagesScreen
-import com.example.medicationadherenceapp.userInterface.MessageItem
 import java.time.ZonedDateTime
 import java.time.ZoneId
 
@@ -48,10 +45,7 @@ fun ScaffoldWithTopBar(
 ) {
     val drawerState = rememberDrawerState(initialValue = initialDrawerValue)
     val scope = rememberCoroutineScope()
-
-    // 👇 new line
     val currentScreen = remember { mutableStateOf("Medications") }
-
     val navItems = listOf(
         NavItem("Medications", Icons.Filled.MedicalServices, 3),
         NavItem("Progress", Icons.Filled.Timeline),
@@ -112,7 +106,10 @@ fun ScaffoldWithTopBar(
                                 }
                             }
                         }) {
-                            Icon(Icons.Filled.Menu, contentDescription = "Navigation drawer")
+                            Icon(
+                                Icons.Filled.Menu,
+                                contentDescription = "Navigation drawer"
+                            )
                         }
                     }
                 )
@@ -135,3 +132,18 @@ fun ScaffoldWithTopBar(
     }
 }
 
+//@Preview(name = "Scaffold - Closed Drawer")
+//@Composable
+//fun ScaffoldWithTopBarPreview() {
+//    ScaffoldWithTopBar {
+//        Text(text = "This is the content of the page")
+//    }
+//}
+
+//@Preview(name = "Scaffold - Open Drawer")
+//@Composable
+//fun ScaffoldWithTopBarOpenDrawerPreview() {
+//    ScaffoldWithTopBar(initialDrawerValue = DrawerValue.Open) {
+//        Text(text = "This is the content of the page")
+//    }
+//}
