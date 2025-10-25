@@ -1,4 +1,4 @@
-package com.example.medicationadherenceapp
+package com.example.medicationadherenceapp.userInterface
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -27,9 +27,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import java.time.ZonedDateTime
+import java.time.ZoneId
+
 
 data class NavItem(val title: String, val icon: ImageVector, val badgeCount: Int? = null)
 
@@ -37,10 +41,11 @@ data class NavItem(val title: String, val icon: ImageVector, val badgeCount: Int
 @Composable
 fun ScaffoldWithTopBar(
     initialDrawerValue: DrawerValue = DrawerValue.Closed,
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit = {}
 ) {
     val drawerState = rememberDrawerState(initialValue = initialDrawerValue)
     val scope = rememberCoroutineScope()
+    val currentScreen = remember { mutableStateOf("Medications") }
     val navItems = listOf(
         NavItem("Medications", Icons.Filled.MedicalServices, 3),
         NavItem("Progress", Icons.Filled.Timeline),
@@ -62,8 +67,11 @@ fun ScaffoldWithTopBar(
                         NavigationDrawerItem(
                             icon = { Icon(item.icon, contentDescription = null) },
                             label = { Text(item.title) },
-                            selected = false,
-                            onClick = { /*TODO*/ },
+                            selected = currentScreen.value == item.title,
+                            onClick = {
+                                currentScreen.value = item.title
+                                scope.launch { drawerState.close() }
+                            },
                             badge = { item.badgeCount?.let { Text(it.toString()) } }
                         )
                     }
@@ -108,24 +116,34 @@ fun ScaffoldWithTopBar(
             }
         ) { paddingValues ->
             Column(modifier = Modifier.padding(paddingValues)) {
-                content()
+                when (currentScreen.value) {
+                    "Messages" -> {
+                        // Example fake data for now
+                        val sampleMessages = listOf(
+                            MessageItem("1", "Dr. Smith", ZonedDateTime.now(ZoneId.systemDefault()), "Please confirm your next appointment.", false),
+                            MessageItem("2", "Mom", ZonedDateTime.now(ZoneId.systemDefault()).minusDays(1), "I am so proud of you.", true)
+                        )
+                        MessagesScreen(messages = sampleMessages)
+                    }
+                    else -> content()
+                }
             }
         }
     }
 }
 
-@Preview(name = "Scaffold - Closed Drawer")
-@Composable
-fun ScaffoldWithTopBarPreview() {
-    ScaffoldWithTopBar {
-        Text(text = "This is the content of the page")
-    }
-}
+//@Preview(name = "Scaffold - Closed Drawer")
+//@Composable
+//fun ScaffoldWithTopBarPreview() {
+//    ScaffoldWithTopBar {
+//        Text(text = "This is the content of the page")
+//    }
+//}
 
-@Preview(name = "Scaffold - Open Drawer")
-@Composable
-fun ScaffoldWithTopBarOpenDrawerPreview() {
-    ScaffoldWithTopBar(initialDrawerValue = DrawerValue.Open) {
-        Text(text = "This is the content of the page")
-    }
-}
+//@Preview(name = "Scaffold - Open Drawer")
+//@Composable
+//fun ScaffoldWithTopBarOpenDrawerPreview() {
+//    ScaffoldWithTopBar(initialDrawerValue = DrawerValue.Open) {
+//        Text(text = "This is the content of the page")
+//    }
+//}
