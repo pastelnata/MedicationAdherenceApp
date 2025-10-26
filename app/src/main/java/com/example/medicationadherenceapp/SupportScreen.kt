@@ -28,9 +28,8 @@ import androidx.compose.ui.unit.sp
 fun SupportScreen() {
     Surface(
         modifier = Modifier.fillMaxSize(),
-        color = Color(0xFFF8F9FA) // A light grey background
+        color = Color(0xFFF8F9FA)
     ) {
-        // Use LazyColumn for scrollability and consistent padding
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
             contentPadding = PaddingValues(16.dp)
@@ -217,7 +216,7 @@ fun ContactCard(
                     Spacer(modifier = Modifier.width(8.dp))
                     OutlinedButton(
                         onClick = { /* TODO: Implement chat action */ },
-                        modifier = Modifier.size(48.dp), // Square button
+                        modifier = Modifier.size(48.dp),
                         shape = RoundedCornerShape(8.dp),
                         contentPadding = PaddingValues(0.dp),
                         border = BorderStroke(1.dp, Color.LightGray)
@@ -234,11 +233,11 @@ fun ContactCard(
     }
 }
 
-// 🔹 Preview so you can see it instantly without adding it anywhere else
+
 @Preview(showBackground = true, widthDp = 380)
 @Composable
 fun SupportScreenPreview() {
-    MaterialTheme { // Wrap with MaterialTheme for proper theming
+    MaterialTheme {
         SupportScreen()
     }
 }

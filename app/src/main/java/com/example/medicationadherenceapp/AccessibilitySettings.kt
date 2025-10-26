@@ -2,11 +2,10 @@ package com.example.medicationadherenceapp
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.VolumeUp
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -19,8 +18,7 @@ import androidx.compose.ui.unit.sp
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AccessibilitySettingsScreen() {
-    // State variables for the interactive elements (for visual representation)
-    var sliderPosition by remember { mutableStateOf(0.33f) }
+    var sliderPosition by remember { mutableFloatStateOf(0.33f) }
     var voicePromptsEnabled by remember { mutableStateOf(true) }
     var soundAlertsEnabled by remember { mutableStateOf(true) }
     var highContrastEnabled by remember { mutableStateOf(false) }
@@ -83,7 +81,6 @@ fun AccessibilitySettingsScreen() {
             }
             Spacer(modifier = Modifier.height(24.dp))
 
-            // Font Size Setting
             SettingRow(icon = Icons.Default.TextFields, title = "Font Size")
             Slider(
                 value = sliderPosition,
@@ -100,9 +97,8 @@ fun AccessibilitySettingsScreen() {
             }
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Toggle Settings
             ToggleSettingRow(
-                icon = Icons.Default.VolumeUp,
+                icon = Icons.AutoMirrored.Filled.VolumeUp,
                 title = "Voice Prompts",
                 checked = voicePromptsEnabled,
                 onCheckedChange = { voicePromptsEnabled = it }
@@ -126,9 +122,12 @@ fun AccessibilitySettingsScreen() {
                 onCheckedChange = { largeTextElementsEnabled = it }
             )
 
-            Divider(modifier = Modifier.padding(vertical = 16.dp))
+            HorizontalDivider(
+                modifier = Modifier.padding(vertical = 16.dp),
+                thickness = DividerDefaults.Thickness,
+                color = DividerDefaults.color
+            )
 
-            // Description Text
             Text(
                 text = "These settings help make the app easier to use. Voice prompts will read medication names and times aloud.",
                 fontSize = 14.sp,
