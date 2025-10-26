@@ -4,14 +4,10 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import com.example.medicationadherenceapp.userInterface.MainRoute
 import com.example.medicationadherenceapp.ui.theme.MedicationAdherenceAppTheme
+import com.example.medicationadherenceapp.userInterface.DoseUi
+import com.example.medicationadherenceapp.userInterface.MainPage
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,9 +15,24 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             MedicationAdherenceAppTheme {
+                val urgent = listOf(
+                    DoseUi("1", "Metformin", "500mg", "Twice daily", minutesOverdue = 60, instructions = "Take with meals")
+                )
+                val today = listOf(
+                    DoseUi("2", "Vitamin D", "40 µg", timeLabel = "09:00"),
+                    DoseUi("3", "Ibuprofen", "200 mg", timeLabel = "14:00")
+                )
+
                 ScaffoldWithTopBar {
-                    MainPage()
+                    MainPage(
+                        urgentDoses = urgent,
+                        todayDoses = today,
+                        onConfirmTaken = {},
+                        onSkip = {},
+                        takenCount = 0
+                    )
                 }
+                MainRoute()
             }
         }
     }
