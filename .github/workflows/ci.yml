@@ -95,11 +95,11 @@ jobs:
   comment:
     name: Comment on PR
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request'
+    if: always() && github.event_name == 'pull_request'
     needs: [ci, build]
     steps:
       - name: Post success comment
-        if: success()
+        if: ${{ needs.ci.result == 'success' && needs.build.result == 'success' }}
         uses: peter-evans/create-or-update-comment@v4
         with:
           issue-number: ${{ github.event.pull_request.number }}
@@ -109,7 +109,7 @@ jobs:
             You can finally merge it and go touch grass 💚🏕️🌿🌲🌳☘️
 
       - name: Post failure comment
-        if: failure()
+        if:  ${{ needs.ci.result != 'success' || needs.build.result != 'success' }}
         uses: peter-evans/create-or-update-comment@v4
         with:
           issue-number: ${{ github.event.pull_request.number }}
