@@ -96,7 +96,7 @@ jobs:
     name: Comment on PR
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request'
-    needs: [build, lint, detekt, test]
+    needs: [ci, build]
     steps:
       - name: Post success comment
         if: success()
