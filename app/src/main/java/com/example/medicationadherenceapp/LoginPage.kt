@@ -3,7 +3,8 @@ package com.example.medicationadherenceapp
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+//import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.*
@@ -14,7 +15,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.medicationadherenceapp.ui.theme.MedicationAdherenceAppTheme
-import kotlinx.coroutines.delay
+//import kotlinx.coroutines.delay
 
 @Composable
 fun LoginPage(onLogin: (UserType) -> Unit) {
@@ -106,7 +107,7 @@ fun LoginScreen(userType: UserType, onBack: () -> Unit, onLogin: () -> Unit) {
 
     Column(modifier = Modifier.padding(16.dp)) {
         IconButton(onClick = onBack) {
-            Icon(Icons.Default.ArrowBack, contentDescription = "Back")
+            Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
         }
         Column(
             modifier = Modifier.fillMaxSize(),

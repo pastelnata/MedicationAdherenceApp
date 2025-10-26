@@ -2,8 +2,6 @@ package com.example.medicationadherenceapp.userInterface
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-//import androidx.compose.foundation.rememberScrollState
-//import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Icon
@@ -18,7 +16,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.medicationadherenceapp.*  // for DrawableIcons, MedStatus, MedStatusSummary, HealthTips, etc.
+import com.example.medicationadherenceapp.*
 
 @Composable
 fun MainPage(
@@ -47,79 +45,82 @@ fun MainPage(
             )
         }
 
-        // ---- Needs Immediate Attention ----
-        item {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Icon(
-                    painter = painterResource(DrawableIcons.ALARM.id),
-                    contentDescription = "Alert",
-                    modifier = Modifier.size(30.dp).padding(end = 4.dp),
-                    tint = Color(0xFFD32F2F),
-                )
-                HeaderText("Needs Immediate Attention")
-            }
-        }
-
-        // urgent cards
-        items(urgentDoses, key = { it.id }) { dose ->
-            MedicationAlertCard(
-                medName = dose.name,
-                dosage = dose.dosage,
-                frequency = dose.frequency ?: "",
-                minutesOverdue = dose.minutesOverdue ?: 0,
-                instructions = dose.instructions ?: "",
-                showOverdueBanner = true,
-                statusLabel = "Overdue",
-                onConfirmedTaken = { onConfirmTaken(dose) },
-                onSkip = { onSkip(dose) }
-            )
-        }
-
-        // ---- Today's Medication header ----
-        item {
-            Spacer(Modifier.height(8.dp))
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                HeaderText("Today's Medication")
-                OutlinedCard {
-                    Text(
-                        text = "$takenCount/${takenCount + todayDoses.size + urgentDoses.size} taken",
-                        modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
-                        style = MaterialTheme.typography.bodyMedium,
-                        fontWeight = FontWeight.Medium
+            // ---- Needs Immediate Attention ----
+            item {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(
+                        painter = painterResource(DrawableIcons.ALARM.id),
+                        contentDescription = "Alert",
+                        modifier = Modifier
+                            .size(30.dp)
+                            .padding(end = 4.dp),
+                        tint = Color(0xFFD32F2F),
                     )
+                    HeaderText("Needs Immediate Attention")
                 }
             }
-        }
 
-        // today cards (same component, but without overdue banner)
-        items(todayDoses, key = { it.id }) { dose ->
-            MedicationAlertCard(
-                medName = dose.name,
-                dosage = dose.dosage,
-                frequency = dose.frequency ?: "",
-                minutesOverdue = 0,
-                instructions = dose.instructions ?: "",
-                showOverdueBanner = false,
-                statusLabel = null,
-                onConfirmedTaken = { onConfirmTaken(dose) },
-                onSkip = { onSkip(dose) }
-            )
-        }
+            // ---- Urgent cards ----
+            items(urgentDoses, key = { it.id }) { dose ->
+                MedicationAlertCard(
+                    medName = dose.name,
+                    dosage = dose.dosage,
+                    frequency = dose.frequency ?: "",
+                    minutesOverdue = dose.minutesOverdue ?: 0,
+                    instructions = dose.instructions ?: "",
+                    showOverdueBanner = true,
+                    statusLabel = "Overdue",
+                    onConfirmedTaken = { onConfirmTaken(dose) },
+                    onSkip = { onSkip(dose) }
+                )
+            }
 
-        // health tips at the end
-        item {
-            Spacer(Modifier.height(8.dp))
-            HealthTips()
+            // ---- Today's Medication header ----
+            item {
+                Spacer(Modifier.height(8.dp))
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    HeaderText("Today's Medication")
+                    OutlinedCard {
+                        Text(
+                            text = "$takenCount/${takenCount + todayDoses.size + urgentDoses.size} taken",
+                            modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
+                            style = MaterialTheme.typography.bodyMedium,
+                            fontWeight = FontWeight.Medium
+                        )
+                    }
+                }
+            }
+
+            // ---- Today cards (no overdue banner) ----
+            items(todayDoses, key = { it.id }) { dose ->
+                MedicationAlertCard(
+                    medName = dose.name,
+                    dosage = dose.dosage,
+                    frequency = dose.frequency ?: "",
+                    minutesOverdue = 0,
+                    instructions = dose.instructions ?: "",
+                    showOverdueBanner = false,
+                    statusLabel = null,
+                    onConfirmedTaken = { onConfirmTaken(dose) },
+                    onSkip = { onSkip(dose) }
+                )
+            }
+
+            // ---- Health tips ----
+            item {
+                Spacer(Modifier.height(8.dp))
+                HealthTips()
+            }
         }
     }
-}
+
 
 @Composable
 fun HeaderText(text: String) {
