@@ -6,22 +6,21 @@ on:
   workflow_dispatch:
 
 jobs:
-  ci:
-    name: CI — Build & Test
+  setup:
+    name: Setup Gradle
     runs-on: ubuntu-latest
-
+    outputs:
+      gradle-cache-key: ${{ steps.cache-key.outputs.key }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Make gradlew executable
-        run: chmod +x ./gradlew
+      - name: Validate Gradle Wrapper
+        uses: gradle/wrapper-validation-action@v2
 
-      - name: Set up JDK 17
-        uses: actions/setup-java@v3
-        with:
-          distribution: temurin
-          java-version: 17
+      - name: Generate Gradle Cache Key
+        id: cache-key
+        run: echo "key=${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}" >> $GITHUB_OUTPUT
 
       - name: Cache Gradle
         uses: actions/cache@v3
@@ -29,27 +28,153 @@ jobs:
           path: |
             ~/.gradle/caches
             ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          key: ${{ steps.cache-key.outputs.key }}
           restore-keys: |
             ${{ runner.os }}-gradle
 
-      - name: Run Unit Tests
-        run: ./gradlew testDebugUnitTest --no-daemon
+  lint:
+    name: Run Lint
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Restore Gradle Cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ needs.setup.outputs.gradle-cache-key }}
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 17
 
       - name: Run Lint
-        run: ./gradlew lint
+        run: ./gradlew lint --no-daemon --build-cache
 
-      - name: Run KtLintCheck
-        run: ./gradlew ktlintCheck
+      - name: Upload Lint Reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: lint-reports
+          path: app/build/reports/lint-results*.html
 
-      - name: Assemble Debug
-        run: ./gradlew assembleDebug
+  detekt:
+    name: Run Detekt
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - uses: actions/checkout@v4
 
-      - name: Run detekt
-        run: ./gradlew detekt
+      - name: Restore Gradle Cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ needs.setup.outputs.gradle-cache-key }}
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Run Detekt
+        run: ./gradlew detekt --no-daemon --build-cache
+
+      - name: Upload Detekt Reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: detekt-reports
+          path: app/build/reports/detekt/*.html
+
+  test:
+    name: Run Unit Tests
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Restore Gradle Cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ needs.setup.outputs.gradle-cache-key }}
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Run Unit Tests
+        run: ./gradlew testDebugUnitTest --no-daemon --build-cache
+
+      - name: Upload Test Results
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: app/build/reports/tests/testDebugUnitTest/index.html
+
+  build:
+    name: Assemble Debug
+    runs-on: ubuntu-latest
+    needs: [lint, detekt, test]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Restore Gradle Cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ needs.setup.outputs.gradle-cache-key }}
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Assemble Debug APK
+        run: ./gradlew assembleDebug --no-daemon --build-cache
 
       - name: Upload Debug APK
         uses: actions/upload-artifact@v4
         with:
           name: app-debug
           path: app/build/outputs/**/*.apk
+
+  comment:
+    name: Comment on PR
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    needs: [build, lint, detekt, test]
+    steps:
+      - name: Post success comment
+        if: success()
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            Hey @${{ github.event.pull_request.user.login }}
+            Wowwww all the checks passed somehow, you must be a genius
+            You can finally merge it and go touch grass 💚🏕️🌿🌲🌳☘️
+
+      - name: Post failure comment
+        if: failure()
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            Fix your PR @${{ github.event.pull_request.user.login }}
+            Check the Action tabs if you're lost
+            If even not that helps, then you can: [Link](https://github.com/pastelnata/MedicationAdherenceApp/blob/master/.github/contract.png)
+            Just kidding (or am I?), you can check the generated reports 📝
