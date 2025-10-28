@@ -2,6 +2,7 @@ package com.example.medicationadherenceapp.data.local.entities
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.Index
 import androidx.room.PrimaryKey
 import java.util.UUID
 
@@ -13,7 +14,8 @@ import java.util.UUID
             childColumns = ["patientId"],
             onDelete = ForeignKey.CASCADE
         )
-    ]
+    ],
+    indices = [Index(value = ["patientId"])]
 )
 data class EmergencyContact(
     @PrimaryKey val contactId: UUID = UUID.randomUUID(),

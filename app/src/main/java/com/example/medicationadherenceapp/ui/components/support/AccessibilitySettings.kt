@@ -176,7 +176,3 @@ fun ToggleSettingRow(icon: ImageVector, title: String, checked: Boolean, onCheck
 fun AccessibilitySettingsScreenPreview() {
     AccessibilitySettingsScreen()
 }
-
-
-
-

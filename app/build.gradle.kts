@@ -77,7 +77,7 @@ dependencies {
     ksp(libs.hilt.compiler)
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.sqlite.bundled)
-    implementation(libs.androidx.room.compiler)
+    ksp(libs.androidx.room.compiler)
     implementation(libs.retrofit)
     implementation(libs.retrofit.converter.gson)
     testImplementation(libs.junit)

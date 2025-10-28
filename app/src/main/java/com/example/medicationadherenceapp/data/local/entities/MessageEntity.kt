@@ -2,8 +2,8 @@ package com.example.medicationadherenceapp.data.local.entities
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.Index
 import androidx.room.PrimaryKey
-import java.time.LocalDateTime
 import java.util.UUID
 
 @Entity(
@@ -20,12 +20,13 @@ import java.util.UUID
             childColumns = ["receiverId"],
             onDelete = ForeignKey.CASCADE
         )
-    ]
+    ],
+    indices = [Index(value = ["senderId"]), Index(value = ["receiverId"]) ]
 )
 data class Message(
     @PrimaryKey val messageId: UUID = UUID.randomUUID(),
     val senderId: UUID,
     val receiverId: UUID,
     val body: String,
-    val timestamp: LocalDateTime
+    val timestamp: Long
 )

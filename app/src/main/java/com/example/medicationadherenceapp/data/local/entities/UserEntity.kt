@@ -28,22 +28,32 @@ data class FamilyPatientCrossRef(
     val patientId: UUID
 )
 
+// Family -> Patients (Users)
 data class FamilyWithPatients(
-    @Embedded val familyMember: User,
+    @Embedded val familyMember: FamilyMember,
     @Relation(
         parentColumn = "familyMemberId",
         entityColumn = "userId",
-        associateBy = Junction(FamilyPatientCrossRef::class)
+        associateBy = Junction(
+            value = FamilyPatientCrossRef::class,
+            parentColumn = "familyMemberId",
+            entityColumn = "patientId"
+        )
     )
     val patients: List<User>
 )
 
+// Patient (User) -> FamilyMembers
 data class PatientWithFamily(
     @Embedded val patient: User,
     @Relation(
         parentColumn = "userId",
         entityColumn = "familyMemberId",
-        associateBy = Junction(FamilyPatientCrossRef::class)
+        associateBy = Junction(
+            value = FamilyPatientCrossRef::class,
+            parentColumn = "patientId",
+            entityColumn = "familyMemberId"
+        )
     )
     val familyMembers: List<FamilyMember>
 )

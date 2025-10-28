@@ -2,9 +2,9 @@ package com.example.medicationadherenceapp.data.local.entities
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.Index
 import androidx.room.PrimaryKey
 import com.example.medicationadherenceapp.MedStatus
-import java.time.LocalDateTime
 import java.util.UUID
 
 @Entity
@@ -30,13 +30,15 @@ data class Medication(
             childColumns = ["medicationId"],
             onDelete = ForeignKey.CASCADE
         )
-    ]
+    ],
+    indices = [Index(value = ["patientId"]), Index(value = ["medicationId"]) ]
 )
 data class MedicationSchedule(
     @PrimaryKey val scheduleId: UUID = UUID.randomUUID(),
     val patientId: UUID,
     val medicationId: UUID,
-    val scheduledTime: LocalDateTime,
+    // store scheduled time as epoch millis
+    val scheduledTime: Long,
     val status: MedStatus = MedStatus.DUE //default status
 )
 
@@ -49,10 +51,12 @@ data class MedicationSchedule(
             childColumns = ["scheduleId"],
             onDelete = ForeignKey.CASCADE
         )
-    ]
+    ],
+    indices = [Index(value = ["scheduleId"]) ]
 )
 data class MedicationIntakeRecord(
     @PrimaryKey val intakeId: UUID = UUID.randomUUID(),
     val scheduleId: UUID,
-    val takenAt: LocalDateTime
+    // store takenAt as epoch millis
+    val takenAt: Long
 )
