@@ -1,4 +1,4 @@
-package com.example.medicationadherenceapp
+package com.example.medicationadherenceapp.ui.components.support
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
