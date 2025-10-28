@@ -1,8 +1,9 @@
-package com.example.medicationadherenceapp
+package com.example.medicationadherenceapp.ui.components.progress
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
@@ -80,7 +81,7 @@ fun ProgressToggle() {
         TextButton(
             onClick = { selectedIndex = 0 },
             shape = RoundedCornerShape(20.dp),
-            colors = androidx.compose.material3.ButtonDefaults.textButtonColors(
+            colors = ButtonDefaults.textButtonColors(
                 containerColor = if (selectedIndex == 0) Color.White else Color.Transparent,
                 contentColor = if (selectedIndex == 0) Color.Black else Color.Gray
             ),
@@ -92,7 +93,7 @@ fun ProgressToggle() {
         TextButton(
             onClick = { selectedIndex = 1 },
             shape = RoundedCornerShape(20.dp),
-            colors = androidx.compose.material3.ButtonDefaults.textButtonColors(
+            colors = ButtonDefaults.textButtonColors(
                 containerColor = if (selectedIndex == 1) Color.White else Color.Transparent,
                 contentColor = if (selectedIndex == 1) Color.Black else Color.Gray
             ),

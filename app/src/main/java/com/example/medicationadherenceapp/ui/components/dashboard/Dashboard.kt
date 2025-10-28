@@ -1,4 +1,4 @@
-package com.example.medicationadherenceapp
+package com.example.medicationadherenceapp.ui.components.dashboard
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -23,6 +23,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.medicationadherenceapp.ui.components.common.ScaffoldWithTopBar
 
 @Composable
 fun MainPage() {
@@ -36,9 +37,9 @@ fun MainPage() {
         // hard coded for now if
         MedStatusSummary(
             statusCounts = mapOf(
-                MedStatus.OVERDUE to 1,
-                MedStatus.DUE to 1,
-                MedStatus.TAKEN to 1
+                com.example.medicationadherenceapp.MedStatus.OVERDUE to 1,
+                com.example.medicationadherenceapp.MedStatus.DUE to 1,
+                com.example.medicationadherenceapp.MedStatus.TAKEN to 1
             )
         )
 
@@ -50,7 +51,7 @@ fun MainPage() {
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(
-                painter = painterResource(DrawableIcons.ALARM.id),
+                painter = painterResource(_root_ide_package_.com.example.medicationadherenceapp.DrawableIcons.ALARM.id),
                 contentDescription = "Alert",
                 modifier = Modifier.size(30.dp).padding(end = 4.dp),
                 tint = Color(0xFFD32F2F)

@@ -1,4 +1,4 @@
-package com.example.medicationadherenceapp
+package com.example.medicationadherenceapp.ui.components.support
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background

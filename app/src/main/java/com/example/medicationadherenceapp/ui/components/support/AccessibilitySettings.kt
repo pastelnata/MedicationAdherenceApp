@@ -1,4 +1,4 @@
-package com.example.medicationadherenceapp
+package com.example.medicationadherenceapp.ui.components.support
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
@@ -176,7 +176,3 @@ fun ToggleSettingRow(icon: ImageVector, title: String, checked: Boolean, onCheck
 fun AccessibilitySettingsScreenPreview() {
     AccessibilitySettingsScreen()
 }
-
-
-
-

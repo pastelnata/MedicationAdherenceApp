@@ -1,4 +1,4 @@
-package com.example.medicationadherenceapp
+package com.example.medicationadherenceapp.ui.components.login
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -13,8 +13,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.medicationadherenceapp.UserType
 import com.example.medicationadherenceapp.ui.theme.MedicationAdherenceAppTheme
-import kotlinx.coroutines.delay
 
 @Composable
 fun LoginPage(onLogin: (UserType) -> Unit) {
