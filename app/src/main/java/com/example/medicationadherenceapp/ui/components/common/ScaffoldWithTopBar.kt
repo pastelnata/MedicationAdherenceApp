@@ -1,4 +1,4 @@
-package com.example.medicationadherenceapp
+package com.example.medicationadherenceapp.ui.components.common
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer

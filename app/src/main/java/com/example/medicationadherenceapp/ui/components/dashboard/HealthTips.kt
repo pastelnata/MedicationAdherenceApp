@@ -1,4 +1,4 @@
-package com.example.medicationadherenceapp
+package com.example.medicationadherenceapp.ui.components.dashboard
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -20,6 +20,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.medicationadherenceapp.DrawableIcons
 
 data class HealthTip(val title: String, val description: String)
 
