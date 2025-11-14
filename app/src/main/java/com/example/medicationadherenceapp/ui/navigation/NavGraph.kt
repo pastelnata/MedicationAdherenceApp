@@ -14,6 +14,7 @@ import com.example.medicationadherenceapp.ui.components.login.LoginPageFromViewM
 import com.example.medicationadherenceapp.ui.components.progress.ProgressComponent
 import com.example.medicationadherenceapp.ui.components.support.SupportScreen
 import com.example.medicationadherenceapp.ui.viewmodel.LoginViewModel
+import com.google.firebase.BuildConfig
 
 // Object that holds route constants used throughout the app.
 // Use simple string routes for top-level screens and include placeholders for routes
@@ -92,7 +93,9 @@ fun NavGraph(startDestination: String = Destinations.LOGIN) {
             // Log the itemId for debugging and to ensure the variable is used
             // (avoids an unused-variable warning). Replace this with your
             // DetailsScreen call when implementing the details UI.
-            android.util.Log.d("NavGraph", "DETAILS route itemId=$itemId")
+            if (BuildConfig.DEBUG) {
+                android.util.Log.d("NavGraph", "DETAILS route itemId=$itemId")
+            }
             // TODO: Show details screen based on itemId. Example:
             // itemId?.let { DetailsScreen(itemId = it) } ?: run { /* show error */ }
         }

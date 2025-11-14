@@ -6,6 +6,10 @@ import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import java.util.UUID
 
+/**
+ * Repository wrapping message DAO. Provides an abstraction layer so ViewModels
+ * don't depend on Room directly. Reads are exposed as Flow to support reactive UI.
+ */
 class MessageRepository @Inject constructor(private val dao: MessageDao) {
     suspend fun sendMessage(message: Message) = dao.insertMessage(message)
     fun getMessages(patientId: UUID): Flow<List<Message>> = dao.getMessagesForPatient(patientId)

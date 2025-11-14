@@ -7,6 +7,10 @@ import androidx.room.PrimaryKey
 import com.example.medicationadherenceapp.MedStatus
 import java.util.UUID
 
+// Medication represents a single medication meta-record (name, dosage, id).
+// Use this table to store medication definitions that may be referenced by
+// schedules. The primary key `medicationId` is a UUID so items remain stable
+// across sync operations.
 @Entity
 data class Medication(
     @PrimaryKey val medicationId: UUID = UUID.randomUUID(),
@@ -15,7 +19,11 @@ data class Medication(
 )
 
 
-// When the medication is scheduled
+// MedicationSchedule represents a scheduled occurrence of a medication for a
+// particular patient. It references the `User` (patientId) and the
+// `Medication` (medicationId). The `scheduledTime` is stored as epoch millis
+// so it's simple to compare against System.currentTimeMillis in workers and
+// UI filters. The `status` field is an enum that tracks DUE/TAKEN/OVERDUE, etc.
 @Entity(
     foreignKeys = [
         ForeignKey(
@@ -42,7 +50,9 @@ data class MedicationSchedule(
     val status: MedStatus = MedStatus.DUE //default status
 )
 
-// When the medication was taken / missed
+// MedicationIntakeRecord stores when a scheduled dose was taken (or missed if
+// you record missed instances). It references `MedicationSchedule` and uses a
+// timestamp so the app can show historical adherence and compute metrics.
 @Entity(
     foreignKeys = [
         ForeignKey(

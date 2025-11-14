@@ -10,11 +10,16 @@ import com.example.medicationadherenceapp.data.local.entities.Message
 import kotlinx.coroutines.flow.Flow
 import java.util.UUID
 
+/**
+ * DAO for in-app messaging. Stores messages with sender/receiver foreign keys.
+ * Exposes Flow for patient-specific message lists so UIs can react to new messages.
+ */
 @Dao
 interface MessageDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertMessage(message: Message)
 
+    // Flow to observe messages for a specific patient/receiver.
     @Query("SELECT * FROM Message WHERE receiverId = :patientId")
     fun getMessagesForPatient(patientId: UUID): Flow<List<Message>>
 

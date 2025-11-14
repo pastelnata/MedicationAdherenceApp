@@ -10,6 +10,18 @@ import javax.inject.Singleton
 import kotlinx.coroutines.flow.Flow
 import java.util.UUID
 
+/**
+ * Repository for medication domain. This class mediates access to the local
+ * DAO layer and is the place to add remote synchronization in the future.
+ *
+ * Current behavior (local-first):
+ *  - Read methods return Room Flow<T> so UI layers can observe data.
+ *  - Write methods are suspend functions that call DAO suspend methods.
+ *
+ * If you later add a RemoteDataSource, this repository would implement the
+ * sync strategy (NetworkBoundResource / explicit refreshes) and merge remote
+ * results into Room.
+ */
 @Singleton
 class MedicationRepository @Inject constructor(
     private val medicationDao: MedicationDao,

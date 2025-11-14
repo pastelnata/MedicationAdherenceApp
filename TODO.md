@@ -1,6 +1,6 @@
 # Project Checklist
 
-## App Structure
+## App Structure --> DONE
 - Create navigation graph with multiple screens
 - Implement screen routes with argument passing
 - Add a ViewModel for each screen
@@ -16,7 +16,7 @@
 - Use LazyColumn or LazyRow for dynamic lists
 - Break UI into reusable composables
 
-## Data Layer
+## Data Layer --> DONE
 - Set up Room database
 - Create entities, DAOs and queries
 - Add a repository that connects Room and network

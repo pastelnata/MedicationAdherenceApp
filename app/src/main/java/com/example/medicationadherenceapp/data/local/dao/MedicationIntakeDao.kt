@@ -10,11 +10,17 @@ import com.example.medicationadherenceapp.data.local.entities.MedicationIntakeRe
 import kotlinx.coroutines.flow.Flow
 import java.util.UUID
 
+/**
+ * DAO for medication intake records (history of taken doses).
+ * Provides reactive reads scoped to a schedule and suspend methods for CRUD.
+ */
 @Dao
 interface MedicationIntakeDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertIntakeRecord(record: MedicationIntakeRecord)
 
+    // Observe all intake records for a specific schedule. Useful for UI lists
+    // and for computing adherence metrics.
     @Query("SELECT * FROM MedicationIntakeRecord WHERE scheduleId = :scheduleId")
     fun getIntakeRecords(scheduleId: UUID): Flow<List<MedicationIntakeRecord>>
 

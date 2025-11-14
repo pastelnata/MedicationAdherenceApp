@@ -6,6 +6,9 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 import java.util.UUID
 
+// EmergencyContact stores contact details for a patient. The foreign key
+// constraint keeps contacts tied to an existing patient, and the index on
+// `patientId` optimizes queries that fetch contacts for a single patient.
 @Entity(
     foreignKeys = [
         ForeignKey(

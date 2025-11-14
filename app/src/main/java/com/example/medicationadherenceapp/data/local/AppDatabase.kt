@@ -20,6 +20,11 @@ import com.example.medicationadherenceapp.data.local.entities.MedicationSchedule
 import com.example.medicationadherenceapp.data.local.entities.Message
 import com.example.medicationadherenceapp.data.local.entities.User
 
+// AppDatabase is the Room database class that registers entities and DAOs.
+// It is provided to the app via Hilt (see di/app/AppModule.kt). The database
+// itself is the application's single source of truth for structured domain data
+// such as users, medications, schedules and messages. Repositories obtain DAO
+// instances from this class to perform reads/writes.
 @Database(
     entities = [
         Medication::class,

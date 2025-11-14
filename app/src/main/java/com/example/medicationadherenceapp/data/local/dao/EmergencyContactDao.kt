@@ -10,6 +10,10 @@ import com.example.medicationadherenceapp.data.local.entities.EmergencyContact
 import kotlinx.coroutines.flow.Flow
 import java.util.UUID
 
+/**
+ * DAO for emergency contacts. Exposes Flow for patient-specific contact lists
+ * so contact UIs update when the DB changes.
+ */
 @Dao
 interface EmergencyContactDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)

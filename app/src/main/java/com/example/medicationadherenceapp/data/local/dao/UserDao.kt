@@ -11,6 +11,11 @@ import com.example.medicationadherenceapp.data.local.entities.PatientWithFamily
 import com.example.medicationadherenceapp.data.local.entities.User
 import java.util.UUID
 
+/**
+ * DAO for user CRUD and relation queries. Uses @Transaction for complex
+ * queries that return relation projection objects (PatientWithFamily).
+ * Keep user passwords safe in production: do not store plain text.
+ */
 @Dao
 interface UserDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
