@@ -6,6 +6,9 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 import java.util.UUID
 
+// Message represents a simple user-to-user message stored locally. In a
+// connected app messages would also be synced with a server; locally we keep
+// senderId and receiverId foreign keys so messages can be queried per patient.
 @Entity(
     foreignKeys = [
         ForeignKey(

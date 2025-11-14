@@ -12,6 +12,10 @@ import com.example.medicationadherenceapp.data.local.entities.FamilyPatientCross
 import com.example.medicationadherenceapp.data.local.entities.FamilyWithPatients
 import java.util.UUID
 
+/**
+ * DAO to manage family members and the many-to-many cross-reference with
+ * patients. Use @Transaction for relational reads that span the cross-ref.
+ */
 @Dao
 interface FamilyDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)

@@ -10,6 +10,11 @@ import javax.inject.Singleton
 import kotlinx.coroutines.flow.Flow
 import java.util.UUID
 
+/**
+ * Repository for user and family operations. Responsible for composing
+ * higher-level operations like linking a family member to a patient. Currently
+ * wraps local DAOs; remote sync would be added here.
+ */
 @Singleton
 class UserRepository @Inject constructor(
     private val userDao: UserDao,

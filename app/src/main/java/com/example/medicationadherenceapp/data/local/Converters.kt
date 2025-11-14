@@ -5,6 +5,9 @@ import com.example.medicationadherenceapp.MedStatus
 import com.example.medicationadherenceapp.UserType
 import java.util.UUID
 
+// Converters provide Room type conversion helpers for types that Room cannot
+// persist natively (UUID, enums). These functions convert to and from String
+// so fields using UUID/enum types can be stored in the SQLite schema.
 object Converters {
 
     @TypeConverter

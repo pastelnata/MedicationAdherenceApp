@@ -3,7 +3,7 @@ package com.example.medicationadherenceapp.ui.components.login
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.*
@@ -15,6 +15,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.medicationadherenceapp.UserType
 import com.example.medicationadherenceapp.ui.theme.MedicationAdherenceAppTheme
+import com.example.medicationadherenceapp.ui.viewmodel.LoginViewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 
 @Composable
 fun LoginPage(onLogin: (UserType) -> Unit) {
@@ -25,6 +27,36 @@ fun LoginPage(onLogin: (UserType) -> Unit) {
     } else {
         LoginScreen(userType = selectedUserType!!, onBack = { selectedUserType = null }, onLogin = { onLogin(selectedUserType!!) })
     }
+}
+
+/**
+ * ViewModel-backed entry for navigation graph to use.
+ * Collects ViewModel state and forwards events into the existing UI.
+ */
+@Composable
+fun LoginPageFromViewModel(viewModel: LoginViewModel, onNavigateToDashboard: () -> Unit) {
+    // collect one-shot success to navigate
+    LaunchedEffect(viewModel) {
+        viewModel.loginSuccess.collect { _ ->
+            onNavigateToDashboard()
+        }
+    }
+
+    // Observe simple state (not yet used by the current UI implementation)
+    val email by viewModel.email.collectAsState()
+    val password by viewModel.password.collectAsState()
+    val isLoading by viewModel.isLoading.collectAsState()
+    val error by viewModel.error.collectAsState()
+
+    // We'll pass an onLogin that calls viewModel.login; to reuse the composable structure
+    LoginPage(onLogin = { userType -> viewModel.login(userType) })
+}
+
+// Hilt convenience overload so callers can omit passing the ViewModel
+@Composable
+fun LoginPageFromViewModel(onNavigateToDashboard: () -> Unit) {
+    val vm: LoginViewModel = hiltViewModel()
+    LoginPageFromViewModel(viewModel = vm, onNavigateToDashboard = onNavigateToDashboard)
 }
 
 @Composable
@@ -88,25 +120,12 @@ fun LoginScreen(userType: UserType, onBack: () -> Unit, onLogin: () -> Unit) {
     val onLoginClick = {
         isLoading = true
         error = null
-        // In a real app, you'd make a network call here
-        // For this example, we'll just simulate a delay
-        // and then call the onLogin callback.
-        // In a real app, you would handle success and error cases from the network call
-        // For example:
-        // viewModel.login(email, password, userType) { success, errorMessage ->
-        //     isLoading = false
-        //     if (success) {
-        //         onLogin()
-        //     } else {
-        //         error = errorMessage
-        //     }
-        // }
         onLogin()
     }
 
     Column(modifier = Modifier.padding(16.dp)) {
         IconButton(onClick = onBack) {
-            Icon(Icons.Default.ArrowBack, contentDescription = "Back")
+            Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
         }
         Column(
             modifier = Modifier.fillMaxSize(),
