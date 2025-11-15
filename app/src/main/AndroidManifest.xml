@@ -2,6 +2,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- Permission for step counter on Android 10+ -->
+    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
+    
+    <!-- Optional: Declare that app uses step counter feature -->
+    <uses-feature
+        android:name="android.hardware.sensor.stepcounter"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.sensor.accelerometer"
+        android:required="false" />
+
     <application
         android:name=".Application"
         android:allowBackup="true"
