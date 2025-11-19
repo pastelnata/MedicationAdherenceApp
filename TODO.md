@@ -39,13 +39,13 @@
 ## Permissions
 - Request runtime permissions when required
 - Add rationale dialog for denied permissions
-- Handle “never ask again” cases
+- Handle "never ask again" cases
 
-## Sensors
-- Access sensors through SensorManager
-- Register sensor listeners in correct lifecycle events
-- Unregister sensor listeners properly
-- Use sensor data in UI or logic
+## Sensors --> DONE
+- Access sensors through SensorManager ✅
+- Register sensor listeners in correct lifecycle events ✅
+- Unregister sensor listeners properly ✅
+- Use sensor data in UI or logic ✅
 
 ## Background Work
 - Add WorkManager to schedule tasks
