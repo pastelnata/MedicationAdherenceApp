@@ -23,12 +23,12 @@
 - Expose Flow or LiveData from Room
 - Add DataStore for preferences
 
-## Networking
-- Add Retrofit service interface
-- Create suspend functions for API calls
-- Parse JSON responses
-- Handle network errors
-- Cache network results locally when needed
+## Networking --> DONE
+- Add Retrofit service interface ✅
+- Create suspend functions for API calls ✅
+- Parse JSON responses ✅
+- Handle network errors ✅
+- Cache network results locally when needed ✅
 
 ## Architecture
 - Follow MVVM pattern
