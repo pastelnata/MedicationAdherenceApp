@@ -2,6 +2,7 @@ package com.example.medicationadherenceapp.data.local.entities
 
 import androidx.room.Embedded
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.Junction
 import androidx.room.PrimaryKey
 import androidx.room.Relation
@@ -29,7 +30,10 @@ data class FamilyMember(
 
 // Cross-reference for a many-to-many relationship between FamilyMember and
 // User (patient). This allows queries in both directions using Room's @Relation.
-@Entity(primaryKeys = ["familyMemberId", "patientId"])
+@Entity(
+    primaryKeys = ["familyMemberId", "patientId"],
+    indices = [Index(value = ["patientId"])]
+)
 data class FamilyPatientCrossRef(
     val familyMemberId: UUID,
     val patientId: UUID

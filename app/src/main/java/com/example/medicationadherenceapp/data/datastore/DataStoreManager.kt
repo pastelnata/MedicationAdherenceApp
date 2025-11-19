@@ -71,4 +71,23 @@ class DataStoreManager(private val context: Context) {
             prefs.clear()
         }
     }
+
+    fun <T> getPreference(key: Preferences.Key<T>, defaultValue: T): Flow<T> =
+        context.userPrefsDataStore.data
+            .catch { exception ->
+                if (exception is IOException) {
+                    emit(emptyPreferences())
+                } else {
+                    throw exception
+                }
+            }
+            .map { preferences ->
+                preferences[key] ?: defaultValue
+            }
+
+    suspend fun <T> savePreference(key: Preferences.Key<T>, value: T) {
+        context.userPrefsDataStore.edit { preferences ->
+            preferences[key] = value
+        }
+    }
 }

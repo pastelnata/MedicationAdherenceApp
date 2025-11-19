@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.datastore.preferences.core.longPreferencesKey
 import com.example.medicationadherenceapp.data.datastore.DataStoreManager
 import com.example.medicationadherenceapp.data.remote.dto.Result
+import com.example.medicationadherenceapp.data.remote.dto.toEntity
 import com.example.medicationadherenceapp.repository.HealthTipRepository
 import com.example.medicationadherenceapp.repository.MedicationRepository
 import com.example.medicationadherenceapp.repository.UserRepository
