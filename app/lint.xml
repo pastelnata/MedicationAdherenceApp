@@ -5,4 +5,10 @@
         <ignore path="**/io.grpc/grpc-core/**/grpc-core-*.jar"/>
         <ignore path="**/androidx.room/*.jar"/>
     </issue>
+
+    <!-- Suppress version checks for test dependencies -->
+    <issue id="NewerVersionAvailable" severity="warning" />
+    <issue id="GradleDependency" severity="warning" />
 </lint>
+
+
