@@ -23,12 +23,12 @@
 - Expose Flow or LiveData from Room
 - Add DataStore for preferences
 
-## Networking
-- Add Retrofit service interface
-- Create suspend functions for API calls
-- Parse JSON responses
-- Handle network errors
-- Cache network results locally when needed
+## Networking --> DONE
+- Add Retrofit service interface ✅
+- Create suspend functions for API calls ✅
+- Parse JSON responses ✅
+- Handle network errors ✅
+- Cache network results locally when needed ✅
 
 ## Architecture
 - Follow MVVM pattern
@@ -39,13 +39,13 @@
 ## Permissions
 - Request runtime permissions when required
 - Add rationale dialog for denied permissions
-- Handle “never ask again” cases
+- Handle "never ask again" cases
 
-## Sensors
-- Access sensors through SensorManager
-- Register sensor listeners in correct lifecycle events
-- Unregister sensor listeners properly
-- Use sensor data in UI or logic
+## Sensors --> DONE
+- Access sensors through SensorManager ✅
+- Register sensor listeners in correct lifecycle events ✅
+- Unregister sensor listeners properly ✅
+- Use sensor data in UI or logic ✅
 
 ## Background Work
 - Add WorkManager to schedule tasks
@@ -63,10 +63,10 @@
 - Ensure touch targets are large enough
 - Support TalkBack navigation
 
-## Testing
-- Add ViewModel unit tests
-- Add Compose UI tests
-- Mock data sources in tests
+## Testing --> DONE
+- Add ViewModel unit tests ✅
+- Add Compose UI tests ✅
+- Mock data sources in tests ✅
 
 ## Performance & Lifecycle
 - Use ViewModel to survive configuration changes

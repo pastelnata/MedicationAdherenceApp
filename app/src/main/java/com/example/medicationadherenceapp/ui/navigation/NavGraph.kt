@@ -12,6 +12,7 @@ import com.example.medicationadherenceapp.ui.components.common.ScaffoldWithTopBa
 import com.example.medicationadherenceapp.ui.components.dashboard.MainPage
 import com.example.medicationadherenceapp.ui.components.login.LoginPageFromViewModel
 import com.example.medicationadherenceapp.ui.components.progress.ProgressComponent
+import com.example.medicationadherenceapp.ui.components.sensors.SensorScreen
 import com.example.medicationadherenceapp.ui.components.support.SupportScreen
 import com.example.medicationadherenceapp.ui.viewmodel.LoginViewModel
 import com.google.firebase.BuildConfig
@@ -28,6 +29,7 @@ object Destinations {
     const val DETAILS = "details/{itemId}"
     const val SUPPORT = "support"
     const val PROGRESS = "progress"
+    const val SENSORS = "sensors"
 }
 
 @Composable
@@ -76,6 +78,13 @@ fun NavGraph(startDestination: String = Destinations.LOGIN) {
         composable(Destinations.PROGRESS) {
             ScaffoldWithTopBar {
                 ProgressComponent()
+            }
+        }
+
+        // Sensors route: displays sensor monitoring screen for activity tracking
+        composable(Destinations.SENSORS) {
+            ScaffoldWithTopBar {
+                SensorScreen()
             }
         }
 

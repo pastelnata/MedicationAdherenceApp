@@ -29,7 +29,11 @@ data class FamilyMember(
 
 // Cross-reference for a many-to-many relationship between FamilyMember and
 // User (patient). This allows queries in both directions using Room's @Relation.
-@Entity(primaryKeys = ["familyMemberId", "patientId"])
+// Indices are added to improve query performance when resolving relationships.
+@Entity(
+    primaryKeys = ["familyMemberId", "patientId"],
+    indices = [androidx.room.Index(value = ["patientId"])]
+)
 data class FamilyPatientCrossRef(
     val familyMemberId: UUID,
     val patientId: UUID
