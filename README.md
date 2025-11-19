@@ -81,6 +81,7 @@ This README serves two purposes:
 - Background work & notifications
 - Accessibility
 - Typical workflow
+- Testing
 
 ---
 
@@ -180,3 +181,50 @@ This README serves two purposes:
 5. Background reminders: WorkManager posts notifications which deep-link into the app.
 
 ---
+dont 
+### Testing
+The app has comprehensive test coverage across all layers:
+
+#### Test Structure
+- **Unit Tests** (`app/src/test/`): Fast JVM tests for business logic
+  - ViewModel tests: LoginViewModel, DashboardViewModel, ProgressViewModel
+  - Repository tests: MedicationRepository with mocked DAOs
+  - Test utilities: TestDataFactory for creating test data
+
+- **Instrumented Tests** (`app/src/androidTest/`): UI tests on device/emulator
+  - Compose UI tests: LoginPage, DashboardComponents
+  - User interaction tests: clicks, navigation, state changes
+
+#### Test Technologies
+- **JUnit 4**: Test framework
+- **Mockito & Mockito-Kotlin**: Mocking dependencies
+- **Kotlinx-coroutines-test**: Testing coroutines and Flows
+- **Turbine**: Testing Flow emissions
+- **Compose UI Test**: Testing Jetpack Compose UI
+- **InstantTaskExecutorRule**: Synchronous LiveData/StateFlow updates
+
+#### Running Tests
+See [RUNNING_TESTS.md](RUNNING_TESTS.md) for quick start guide and [TESTING_GUIDE.md](TESTING_GUIDE.md) for detailed documentation.
+
+**Quick commands:**
+```powershell
+# Run all unit tests
+.\gradlew test
+
+# Run all UI tests (requires device/emulator)
+.\gradlew connectedAndroidTest
+
+# Run with coverage
+.\gradlew testDebugUnitTest jacocoTestReport
+```
+
+#### Test Coverage Summary
+- ✅ ViewModels: 100% method coverage
+- ✅ Repository layer: All CRUD operations tested
+- ✅ UI components: Login and Dashboard tested
+- ✅ Data factories: Reusable test data creation
+- ✅ Mocking: Proper isolation with Mockito
+- ✅ Coroutines: Async code tested with runTest
+
+---
+

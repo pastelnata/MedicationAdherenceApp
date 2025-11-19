@@ -81,11 +81,25 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.retrofit.converter.gson)
     implementation(libs.okhttp.logging.interceptor)
+
+    // Unit testing dependencies
     testImplementation(libs.junit)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.mockito.core)
+    testImplementation(libs.mockito.kotlin)
+    testImplementation(libs.androidx.arch.core.testing)
+    testImplementation(libs.turbine)
+
+    // Android instrumentation testing dependencies
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
+    androidTestImplementation(libs.hilt.android.testing)
+    kspAndroidTest(libs.hilt.compiler)
+    androidTestImplementation(libs.androidx.arch.core.testing)
+    androidTestImplementation(libs.kotlinx.coroutines.test)
+
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
     implementation(libs.androidx.hilt.navigation.compose)
