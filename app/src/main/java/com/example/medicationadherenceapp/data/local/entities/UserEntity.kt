@@ -7,6 +7,7 @@ import androidx.room.PrimaryKey
 import androidx.room.Relation
 import com.example.medicationadherenceapp.UserType
 import java.util.UUID
+import androidx.room.Index
 
 // User represents app users: patients and family members are modeled with
 // a User entry (patients) and a FamilyMember entity linked by a cross-ref.
@@ -29,7 +30,13 @@ data class FamilyMember(
 
 // Cross-reference for a many-to-many relationship between FamilyMember and
 // User (patient). This allows queries in both directions using Room's @Relation.
-@Entity(primaryKeys = ["familyMemberId", "patientId"])
+@Entity(
+    primaryKeys = ["familyMemberId", "patientId"],
+    indices = [
+        Index("familyMemberId"),
+        Index("patientId")
+    ]
+)
 data class FamilyPatientCrossRef(
     val familyMemberId: UUID,
     val patientId: UUID
