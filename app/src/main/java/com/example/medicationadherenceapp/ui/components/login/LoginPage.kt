@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.dp
 import com.example.medicationadherenceapp.UserType
 import com.example.medicationadherenceapp.ui.theme.MedicationAdherenceAppTheme
 import com.example.medicationadherenceapp.ui.viewmodel.LoginViewModel
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 
 @Composable
 fun LoginPage(onLogin: (UserType) -> Unit) {

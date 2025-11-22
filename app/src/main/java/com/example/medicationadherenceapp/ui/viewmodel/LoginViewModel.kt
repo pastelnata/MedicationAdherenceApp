@@ -72,13 +72,13 @@ class LoginViewModel @Inject constructor(private val userRepository: com.example
             delay(700)
 
             // Simple validation
-            val e = _email.value.trim()
-            val p = _password.value
-            if (e.isEmpty() || p.length < 4 || !e.contains("@")) {
-                _error.value = "Please enter a valid email and password (min 4 chars)."
-                _isLoading.value = false
-                return@launch
-            }
+            //val e = _email.value.trim()
+            //val p = _password.value
+            //if (e.isEmpty() || p.length < 4 || !e.contains("@")) {
+            //    _error.value = "Please enter a valid email and password (min 4 chars)."
+            //    _isLoading.value = false
+            //    return@launch
+            //}
 
             // Simulate success: clear loading and emit a one-shot event so the
             // UI can navigate away (for example). In production, you'd handle

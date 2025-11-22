@@ -24,9 +24,30 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.medicationadherenceapp.ui.components.common.ScaffoldWithTopBar
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import com.example.medicationadherenceapp.ui.components.dashboard.MedicationAlertCard
+import com.example.medicationadherenceapp.ui.components.dashboard.MedicationDoseRow
+import com.example.medicationadherenceapp.ui.viewmodel.DashboardViewModel
+
 
 @Composable
-fun MainPage() {
+fun MainPage(
+    viewModel: DashboardViewModel = hiltViewModel()
+) {
+    val todayDoses by viewModel.todayDoses.collectAsState()
+
+    // pick one overdue dose (if any) for the "Needs Immediate Attention" box
+    val urgentDose = todayDoses.firstOrNull { (it.minutesOverdue ?: 0) > 0 }
+    // the rest go into "Today's Medication"
+    val otherDoses = todayDoses.filterNot { it.id == urgentDose?.id }
+
+    val statusCounts by viewModel.statusCounts.collectAsState()
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -36,11 +57,7 @@ fun MainPage() {
     ) {
         // hard coded for now if
         MedStatusSummary(
-            statusCounts = mapOf(
-                com.example.medicationadherenceapp.MedStatus.OVERDUE to 1,
-                com.example.medicationadherenceapp.MedStatus.DUE to 1,
-                com.example.medicationadherenceapp.MedStatus.TAKEN to 1
-            )
+                statusCounts = statusCounts
         )
 
         Spacer(modifier = Modifier.padding(8.dp))
@@ -59,7 +76,21 @@ fun MainPage() {
             HeaderText("Needs Immediate Attention")
         }
 
-        // insert medication boxes here
+        // medication boxes
+        urgentDose?.let { dose ->
+            Spacer(modifier = Modifier.padding(top = 8.dp))
+
+            MedicationAlertCard(
+                medName = dose.name,
+                dosage = dose.dosage,
+                frequency = dose.frequency ?: "",
+                minutesOverdue = dose.minutesOverdue ?: 0,
+                instructions = dose.instructions ?: "",
+                onConfirmedTaken = { viewModel.markDoseTaken(dose.id) },
+                onSkip = { viewModel.skipDose(dose.id) }
+            )
+        }
+
 
         Spacer(modifier = Modifier.padding(8.dp))
 
@@ -80,7 +111,27 @@ fun MainPage() {
             }
         }
 
-        // insert medication boxes here
+        // today's medication boxes
+        if (otherDoses.isNotEmpty()) {
+            Spacer(modifier = Modifier.padding(top = 8.dp))
+
+            Column(
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                otherDoses.forEach { dose ->
+                    MedicationAlertCard(
+                        medName = dose.name,
+                        dosage = dose.dosage,
+                        frequency = dose.frequency ?: "",
+                        minutesOverdue = dose.minutesOverdue ?: 0,
+                        instructions = dose.instructions ?: "",
+                        onConfirmedTaken = { viewModel.markDoseTaken(dose.id) },
+                        onSkip = { viewModel.skipDose(dose.id) }
+                    )
+                }
+            }
+        }
+
 
         Spacer(modifier = Modifier.padding(8.dp))
 

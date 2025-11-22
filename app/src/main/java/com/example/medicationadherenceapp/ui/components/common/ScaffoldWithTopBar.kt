@@ -37,6 +37,7 @@ data class NavItem(val title: String, val icon: ImageVector, val badgeCount: Int
 @Composable
 fun ScaffoldWithTopBar(
     initialDrawerValue: DrawerValue = DrawerValue.Closed,
+    onNavItemSelected: (String) -> Unit = {},
     content: @Composable () -> Unit
 ) {
     val drawerState = rememberDrawerState(initialValue = initialDrawerValue)
@@ -63,7 +64,10 @@ fun ScaffoldWithTopBar(
                             icon = { Icon(item.icon, contentDescription = null) },
                             label = { Text(item.title) },
                             selected = false,
-                            onClick = { /*TODO*/ },
+                            onClick = {
+                                scope.launch { drawerState.close() }
+                                onNavItemSelected(item.title)
+                            },
                             badge = { item.badgeCount?.let { Text(it.toString()) } }
                         )
                     }
