@@ -19,6 +19,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.google.firebase.BuildConfig
 import comp.example.medicationadherenceapp.data.Medication
 
 @Composable
@@ -35,7 +36,9 @@ fun HomeScreen(
             LazyColumn {
                 items(medications.filter { it.name.contains(searchQuery, ignoreCase = true) }) { medication ->
                     MedicationItem(medication = medication, onClick = {
-                        Log.d("HomeScreen", "Clicked on ${medication.name}")
+                        if (BuildConfig.DEBUG) {
+                            Log.d("HomeScreen", "Clicked on ${medication.name}")
+                        }
                     })
                 }
             }
