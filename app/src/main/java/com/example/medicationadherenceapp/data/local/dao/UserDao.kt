@@ -24,6 +24,9 @@ interface UserDao {
     @Query("SELECT * FROM User WHERE userId = :id")
     suspend fun getUser(id: UUID): User?
 
+    @Query("SELECT * FROM User WHERE name = :name LIMIT 1")
+    suspend fun getUserByName(name: String): User?
+
     @Transaction
     @Query("SELECT * FROM User WHERE userId = :id")
     suspend fun getPatientWithFamily(id: UUID): PatientWithFamily

@@ -12,6 +12,7 @@ import com.example.medicationadherenceapp.ui.components.common.ScaffoldWithTopBa
 import com.example.medicationadherenceapp.ui.components.dashboard.MainPage
 import com.example.medicationadherenceapp.ui.components.login.LoginPageFromViewModel
 import com.example.medicationadherenceapp.ui.components.progress.ProgressComponent
+import com.example.medicationadherenceapp.ui.components.sensors.SensorScreen
 import com.example.medicationadherenceapp.ui.components.support.SupportScreen
 import com.example.medicationadherenceapp.ui.viewmodel.LoginViewModel
 import com.google.firebase.BuildConfig
@@ -28,6 +29,7 @@ object Destinations {
     const val DETAILS = "details/{itemId}"
     const val SUPPORT = "support"
     const val PROGRESS = "progress"
+    const val SENSORS = "sensors"
 
     const val MESSAGES = "messages"
 }
@@ -78,7 +80,6 @@ fun NavGraph(startDestination: String = Destinations.LOGIN) {
         }
 
 
-
         // Support route: another top-level screen example.
         composable(Destinations.SUPPORT) {
             ScaffoldWithTopBar(
@@ -96,7 +97,6 @@ fun NavGraph(startDestination: String = Destinations.LOGIN) {
                 SupportScreen()
             }
         }
-
 
         // Progress route: demonstrates reusing the same scaffold pattern.
         composable(Destinations.PROGRESS) {
@@ -129,6 +129,13 @@ fun NavGraph(startDestination: String = Destinations.LOGIN) {
             }
         }
 
+
+        // Sensors route: displays sensor monitoring screen for activity tracking
+        composable(Destinations.SENSORS) {
+            ScaffoldWithTopBar {
+                SensorScreen()
+            }
+        }
 
         // DETAILS route: shows how to declare a route that takes a typed argument
         // (NavType.IntType) and how to set up a deep link that maps a URL to the
