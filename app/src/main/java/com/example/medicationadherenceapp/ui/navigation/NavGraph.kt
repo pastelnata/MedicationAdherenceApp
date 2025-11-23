@@ -28,6 +28,8 @@ object Destinations {
     const val DETAILS = "details/{itemId}"
     const val SUPPORT = "support"
     const val PROGRESS = "progress"
+
+    const val MESSAGES = "messages"
 }
 
 @Composable
@@ -59,25 +61,74 @@ fun NavGraph(startDestination: String = Destinations.LOGIN) {
         // a top app bar. Use lightweight composables that read state from
         // their ViewModels (not shown here) to render UI.
         composable(Destinations.DASHBOARD) {
-            ScaffoldWithTopBar {
+            ScaffoldWithTopBar(
+                onNavItemSelected = { title ->
+                    when (title) {
+                        "Medications" -> {
+                            // already on dashboard; could refresh if needed
+                        }
+                        "Progress" -> navController.navigate(Destinations.PROGRESS)
+                        "Messages" -> navController.navigate(Destinations.MESSAGES)
+                        "Help & Support" -> navController.navigate(Destinations.SUPPORT)
+                    }
+                }
+            ) {
                 MainPage()
             }
         }
 
 
+
         // Support route: another top-level screen example.
         composable(Destinations.SUPPORT) {
-            ScaffoldWithTopBar {
+            ScaffoldWithTopBar(
+                onNavItemSelected = { title ->
+                    when (title) {
+                        "Medications" -> navController.navigate(Destinations.DASHBOARD)
+                        "Progress" -> navController.navigate(Destinations.PROGRESS)
+                        "Messages" -> navController.navigate(Destinations.MESSAGES)
+                        "Help & Support" -> {
+                            // already here
+                        }
+                    }
+                }
+            ) {
                 SupportScreen()
             }
         }
 
+
         // Progress route: demonstrates reusing the same scaffold pattern.
         composable(Destinations.PROGRESS) {
-            ScaffoldWithTopBar {
+            ScaffoldWithTopBar(
+                onNavItemSelected = { title ->
+                    when (title) {
+                        "Medications" -> navController.navigate(Destinations.DASHBOARD)
+                        "Progress" -> { /* already here */ }
+                        "Messages" -> navController.navigate(Destinations.MESSAGES)
+                        "Help & Support" -> navController.navigate(Destinations.SUPPORT)
+                    }
+                }
+            ) {
                 ProgressComponent()
             }
         }
+
+        composable(Destinations.MESSAGES) {
+            ScaffoldWithTopBar(
+                onNavItemSelected = { title ->
+                    when (title) {
+                        "Medications" -> navController.navigate(Destinations.DASHBOARD)
+                        "Progress" -> navController.navigate(Destinations.PROGRESS)
+                        "Messages" -> { /* already here */ }
+                        "Help & Support" -> navController.navigate(Destinations.SUPPORT)
+                    }
+                }
+            ) {
+                com.example.medicationadherenceapp.ui.components.messagescreen.MessagesRoute()
+            }
+        }
+
 
         // DETAILS route: shows how to declare a route that takes a typed argument
         // (NavType.IntType) and how to set up a deep link that maps a URL to the
